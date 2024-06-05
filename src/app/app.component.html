@@ -9,10 +9,8 @@
   <router-outlet></router-outlet>
 </div>
 
-{{ title }}
-<!-- {{ cards2().length }} -->
-<!-- <ul>
-  @for (card of cards2() ; track card.id) {
-    <li>{{ card.id }}</li>
+<ul>
+  @for (card of cards ; track card.id) {
+    <li>{{ card.question }}</li>
   }
-</ul> -->
+</ul>

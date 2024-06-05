@@ -5,6 +5,8 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { CardComponent } from './components/card/card.component.js';
 import { CardService } from './services/card.service.js';
 import { TagComponent } from './components/tag/tag.component';
+import { map } from 'rxjs';
+import { Card } from './types/Card.js';
 
 @Component({
   selector: 'app-root',
@@ -15,13 +17,17 @@ import { TagComponent } from './components/tag/tag.component';
 })
 export class AppComponent implements OnInit{
   title = 'memopus';
-  cardsApp = this.cardService.cards;
+  cards: Card[] = [];
+
+  // cardsApp = this.cardService.cards;
   tags = ["Echec", "English", "Formation", "Geographie", "HTML", "Vocabulaire"];
 
   constructor(private cardService: CardService) {}
 
   ngOnInit() {
-    this.cardService.getCards().subscribe();
+    this.cardService.fetchCards().subscribe(cards => {
+      this.cards = cards;
+    })
   }
 }
 
