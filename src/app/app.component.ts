@@ -1,5 +1,8 @@
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { AuthService } from './services/auth.service';
+
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { CardComponent } from './components/card/card.component.js';
@@ -15,6 +18,20 @@ import { Card } from './types/Card.js';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
+export class AppComponent implements OnInit {
+  title = 'memopus';
+  constructor(private authService: AuthService, private router: Router) { }
+
+  ngOnInit(): void {
+    if (!this.authService.getIsAuthenticated()) {
+      this.router.navigate(['/'])
+    } else {
+      this.router.navigate(["home"])
+    }
+  }
+
+
 export class AppComponent implements OnInit{
   title = 'memopus';
   cards: Card[] = [];

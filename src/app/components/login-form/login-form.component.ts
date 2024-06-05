@@ -1,42 +1,41 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { LoginService } from '../../services/login.service';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { AlertComponent } from '../alert/alert.component';
 import { map } from 'rxjs';
+
 
 @Component({
   selector: 'app-login-form',
   standalone: true,
   imports: [FormsModule, AlertComponent],
   templateUrl: './login-form.component.html',
-  styleUrl: './login-form.component.css'
 })
 export class LoginFormComponent {
   email: string = "";
   password: string = "";
 
-  isAuthenticated: boolean = false;
-  alertMessage: string = "";
+  authMessage: string = "";
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   login(formData: NgForm) {
     const { email, password } = formData.value;
 
-    this.loginService.loginUser(email, password)
+    this.authService.loginUser(email, password)
       .pipe(
         map(response => response.users[0])
       )
       .subscribe(user => {
         if (user.login == email && user.pwd == password) {
-          this.isAuthenticated = true;
-          this.alertMessage = "Vous êtes bien connectés ! Vous serez redirigé vers la page d'accueil.";
+          this.authService.setIsAuthenticated(true);
+          this.authMessage = "Vous êtes bien connectés ! Vous serez redirigé vers la page d'accueil.";
           setTimeout(() => {
-            this.router.navigate(['']);
-          }, 2000)
+            this.router.navigate(['home']);
+          }, 1000)
         } else {
-          console.log("failed!")
+          this.authMessage = "Les identifiants entrés sont erronés !";
         }
       });
   }
