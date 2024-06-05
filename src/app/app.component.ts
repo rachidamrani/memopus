@@ -4,6 +4,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { CardComponent } from './components/card/card.component.js';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
