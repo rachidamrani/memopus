@@ -1,6 +1,6 @@
 <div class="w-full max-w-xs">
-    @if(isAuthenticated) {
-    <app-alert [message]="alertMessage" />
+    @if(authMessage) {
+    <app-alert [message]="authMessage" />
     }
     <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" name="loginForm" (submit)="login(loginForm)"
         #loginForm="ngForm">

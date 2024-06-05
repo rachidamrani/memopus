@@ -1,5 +1,7 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,5 +11,19 @@ import { RouterLink } from '@angular/router';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  isAuthenticated: boolean = false;
 
+  constructor(private location: Location, private authService: AuthService, private router: Router) {
+    this.location.onUrlChange(path => {
+      if (path == "/home") {
+        this.isAuthenticated = true;
+      }
+    });
+  }
+
+  logout() {
+    this.authService.logoutUser();
+    this.isAuthenticated = false;
+    this.router.navigate(['/']);
+  }
 }
