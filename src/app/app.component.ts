@@ -4,24 +4,19 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { CardComponent } from './components/card/card.component.js';
 import { CardService } from './services/card.service.js';
-import { map } from 'rxjs';
+import { TagComponent } from './components/tag/tag.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    RouterLink,
-    NavbarComponent,
-    LoginFormComponent,
-    CardComponent,
-  ],
+  imports: [RouterOutlet, RouterLink, NavbarComponent, LoginFormComponent, CardComponent,TagComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
   title = 'memopus';
   cardsApp = this.cardService.cards;
+  tags = ["Echec", "English", "Formation", "Geographie", "HTML", "Vocabulaire"];
 
   constructor(private cardService: CardService) {}
 
@@ -29,3 +24,4 @@ export class AppComponent implements OnInit{
     this.cardService.getCards().subscribe();
   }
 }
+
