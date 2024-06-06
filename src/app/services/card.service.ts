@@ -1,7 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Response } from '../types/Response.js';
-import { map } from 'rxjs';
 import { Card } from '../types/Card.js';
 
 @Injectable({
